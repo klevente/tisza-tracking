@@ -28,19 +28,21 @@ export async function loader() {
     orderBy: asc(members.recordedAt),
   });
 
-  console.log(data);
-
   return json({ data });
 }
 
-const formatter = new Intl.DateTimeFormat("hu-HU", {
+const axisFormat = new Intl.DateTimeFormat("hu-HU", {
   month: "2-digit",
   day: "numeric",
-  hour: "numeric",
-  minute: "numeric",
 });
 
-const tickFormatter = (value: string) => formatter.format(new Date(value));
+const labelFormat = new Intl.DateTimeFormat("hu-HU", {
+  dateStyle: "short",
+  timeStyle: "short",
+});
+
+const tickFormatter = (value: string) => axisFormat.format(new Date(value));
+const labelFormatter = (value: string) => labelFormat.format(new Date(value));
 
 export default function Index() {
   const { data: chartData } = useLoaderData<typeof loader>();
@@ -77,7 +79,7 @@ export default function Index() {
           />
           <ChartTooltip
             cursor={false}
-            content={<ChartTooltipContent hideLabel />}
+            content={<ChartTooltipContent labelFormatter={labelFormatter} />}
           />
           <Line
             dataKey="memberCount"

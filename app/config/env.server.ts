@@ -8,6 +8,7 @@ export const env = createEnv({
   server: {
     NODE_ENV: z.enum(["development", "preview", "production"]),
     DATABASE_URL: z.string().url(),
+    CHROME_PATH: z.string().optional(),
   },
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,

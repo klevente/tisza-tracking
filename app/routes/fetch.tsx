@@ -13,7 +13,12 @@ chromium.setGraphicsMode = false;
 
 // https://www.stefanjudis.com/blog/how-to-use-headless-chrome-in-serverless-functions/
 
+export const config = {
+  maxDuration: 30,
+};
+
 export async function loader() {
+  const time = performance.now();
   console.log("1. Fetch called!");
   const browser = await puppeteer.launch({
     args: chromium.args,
@@ -57,6 +62,7 @@ export async function loader() {
 
   console.log("8. Inserted data point to DB!");
 
+  console.log(`Took: ${performance.now() - time} ms`);
   return new Response(JSON.stringify(numOfMembers), {
     status: 200,
   });

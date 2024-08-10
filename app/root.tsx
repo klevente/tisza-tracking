@@ -6,8 +6,15 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import { Analytics } from "@vercel/analytics/react";
+import stylesheet from "~/tailwind.css?url";
+import type { ReactNode } from "react";
+import type { LinksFunction } from "@remix-run/server-runtime";
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: stylesheet },
+];
+
+export function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>

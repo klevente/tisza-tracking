@@ -16,7 +16,10 @@ import { useLoaderData } from "@remix-run/react";
 export const meta: MetaFunction = () => {
   return [
     { title: "Tisza Rendszerváltók" },
-    { name: "description", content: "Tisza rendszerváltók számának alakulása" },
+    {
+      name: "description",
+      content: "Tisza rendszerváltó tagok számának alakulása",
+    },
   ];
 };
 
@@ -31,8 +34,10 @@ export async function loader() {
 }
 
 const formatter = new Intl.DateTimeFormat("hu-HU", {
-  dateStyle: "short",
-  timeStyle: "short",
+  month: "2-digit",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
 });
 
 const tickFormatter = (value: string) => formatter.format(new Date(value));

@@ -3,6 +3,7 @@ import chromium from "@sparticuz/chromium";
 import { db } from "~/db/index.server";
 import { members } from "~/db/schema.server";
 import { env } from "~/config/env.server";
+import type { LoaderFunctionArgs } from "@remix-run/router";
 
 // Based on: https://www.stefanjudis.com/blog/how-to-use-headless-chrome-in-serverless-functions/
 
@@ -10,6 +11,12 @@ import { env } from "~/config/env.server";
 export const config = {
   maxDuration: 60,
 };
+
+function isValidAuth(headers: Headers) {
+  const authHeader = headers.get("authorization");
+
+  return authHeader === `Bearer ${env.CRON_SECRET}`;
+}
 
 async function getBrowser() {
   if (env.CHROME_PATH) {
@@ -29,10 +36,15 @@ async function getBrowser() {
   }
 }
 
-export async function loader() {
+export async function loader({ request }: LoaderFunctionArgs) {
+  if (!isValidAuth(request.headers)) {
+    return new Response(JSON.stringify({ status: "unauthorized" }), {
+      status: 401,
+    });
+  }
   const time = performance.now();
   try {
-    console.log("1. Fetch called!");
+    console.log("1. Data fetch starting!");
     const browser = await getBrowser();
     console.log("2. Browser created!");
     const page = await browser.newPage();

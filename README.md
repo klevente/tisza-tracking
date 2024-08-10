@@ -1,38 +1,11 @@
-# Remix
+# Tisza Tracking
 
-This directory is a brief example of a [Remix](https://remix.run/docs) site that can be deployed to Vercel with zero configuration.
+Tiny web app for tracking the number of Tisza "Rendszerváltó" members over time. Data updates every 24 hours at 12PM UTC.
 
-To get started, run the Remix cli with this template
+You can access the deployed version [here](https://tisza-tracking.vercel.app/).
 
-```sh
-npx create-remix@latest --template vercel/vercel/examples/remix
-```
+## Details
 
-## Deploy Your Own
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/vercel/tree/main/examples/remix&template=remix)
-
-_Live Example: https://remix-run-template.vercel.app_
-
-You can also deploy using the [Vercel CLI](https://vercel.com/docs/cli):
-
-```sh
-npm i -g vercel
-vercel
-```
-
-## Development
-
-To run your Remix app locally, make sure your project's local dependencies are installed:
-
-```sh
-npm install
-```
-
-Afterwards, start the Remix development server like so:
-
-```sh
-npm run dev
-```
-
-Open up [http://localhost:5173](http://localhost:5173) and you should be ready to go!
+- Hosted on [Vercel](https://vercel.com)
+- Built with [Remix](https://remix.run) (using the [`@vercel/remix`](https://www.npmjs.com/package/@vercel/remix) adapter)
+- Components from [shadcn/ui](https://ui.shadcn.com/)

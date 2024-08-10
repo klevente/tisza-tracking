@@ -1,5 +1,5 @@
 import { json, type MetaFunction } from "@vercel/remix";
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 import { UsersIcon } from "lucide-react";
 
 import {
@@ -47,6 +47,8 @@ const labelFormatter = (value: string) => labelFormat.format(new Date(value));
 export default function Index() {
   const { data: chartData } = useLoaderData<typeof loader>();
 
+  const latest = chartData.at(-1);
+
   const chartConfig = {
     memberCount: {
       label: "Tagok",
@@ -56,7 +58,17 @@ export default function Index() {
   } satisfies ChartConfig;
   return (
     <div className="max-w-2xl mx-auto mt-16">
-      <h1 className="text-3xl font-bold">Tisza Rendszerváltók</h1>
+      <h1 className="text-3xl font-bold">Tisza Rendszerváltók Száma</h1>
+      <div className="flex justify-between flex-wrap">
+        <h2 className="italic">2024. augusztustól</h2>
+        {latest && (
+          <p>
+            Jelenlegi támogatók:{" "}
+            <span className="font-mono">{latest.memberCount}</span> (
+            {labelFormatter(latest.recordedAt)})
+          </p>
+        )}
+      </div>
       <ChartContainer
         config={chartConfig}
         className="min-h-[200px] max-w-full border p-4 rounded-lg mt-4"
@@ -77,6 +89,7 @@ export default function Index() {
             tickMargin={8}
             tickFormatter={tickFormatter}
           />
+          <YAxis tickLine={false} axisLine={false} tickMargin={8} />
           <ChartTooltip
             cursor={false}
             content={<ChartTooltipContent labelFormatter={labelFormatter} />}
@@ -86,7 +99,7 @@ export default function Index() {
             type="natural"
             stroke="var(--color-memberCount)"
             strokeWidth={2}
-            dot={false}
+            dot={true}
           />
         </LineChart>
       </ChartContainer>

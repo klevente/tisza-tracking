@@ -1,5 +1,12 @@
 import { json, type MetaFunction } from "@vercel/remix";
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  ReferenceLine,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { UsersIcon } from "lucide-react";
 
 import {
@@ -100,6 +107,12 @@ export default function Index() {
             stroke="var(--color-memberCount)"
             strokeWidth={2}
             dot={true}
+          />
+          <ReferenceLine
+            y={50_000}
+            label="Cél"
+            stroke="var(--color-memberCount)"
+            strokeDasharray="3 3"
           />
         </LineChart>
       </ChartContainer>

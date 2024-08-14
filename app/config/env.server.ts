@@ -10,6 +10,9 @@ export const env = createEnv({
     DATABASE_URL: z.string().url(),
     CRON_SECRET: z.string(),
     CHROME_PATH: z.string().optional(),
+    THEME_SESSION_SECRET: z
+      .string()
+      .transform((s) => s.split(".").map((e) => e.trim())),
   },
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,

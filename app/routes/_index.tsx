@@ -19,6 +19,7 @@ import { db } from "~/db/index.server";
 import { asc } from "drizzle-orm";
 import { members } from "~/db/schema.server";
 import { useLoaderData } from "@remix-run/react";
+import { ThemeToggle } from "~/components/theme-toggle";
 
 export const meta: MetaFunction = () => {
   return [
@@ -64,8 +65,11 @@ export default function Index() {
     },
   } satisfies ChartConfig;
   return (
-    <div className="max-w-2xl mx-auto mt-16">
-      <h1 className="text-3xl font-bold">Tisza Rendszerváltók Száma</h1>
+    <div className="max-w-2xl mx-auto mt-16 px-2 md:px-0">
+      <header className="flex gap-2 justify-between">
+        <h1 className="text-3xl font-bold">Tisza Rendszerváltók Száma</h1>
+        <ThemeToggle />
+      </header>
       <div className="flex justify-between flex-wrap">
         <h2 className="italic">2024. augusztustól</h2>
         {latest && (

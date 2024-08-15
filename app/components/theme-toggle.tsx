@@ -23,10 +23,10 @@ export function ThemeToggle() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setTheme(Theme.LIGHT)}>
-          Light
+          Világos
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme(Theme.DARK)}>
-          Dark
+          Sötét
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

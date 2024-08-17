@@ -9,3 +9,5 @@ export const members = pgTable("members", {
     .primaryKey(),
   memberCount: integer("member_count").notNull(),
 });
+
+export type Member = typeof members.$inferSelect;

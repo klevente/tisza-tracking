@@ -21,7 +21,7 @@ function isValidAuth(headers: Headers) {
 async function getBrowser() {
   if (env.CHROME_PATH) {
     return puppeteer.launch({
-      executablePath: "chrome/win64-126.0.6478.182/chrome-win64/chrome.exe",
+      executablePath: env.CHROME_PATH,
       headless: true,
     });
   } else {

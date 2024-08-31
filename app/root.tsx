@@ -14,7 +14,7 @@ import type { LoaderFunctionArgs } from "@remix-run/router";
 import { themeSessionResolver } from "~/theme.server";
 import {
   PreventFlashOnWrongTheme,
-  Theme,
+  type Theme,
   ThemeProvider,
   useTheme,
 } from "remix-themes";

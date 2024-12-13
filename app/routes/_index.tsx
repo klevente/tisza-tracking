@@ -203,7 +203,7 @@ export default function Index() {
               type="natural"
               stroke="var(--color-memberCount)"
               strokeWidth={2}
-              dot={true}
+              dot={false}
             />
             <ReferenceLine
               y={50_000}

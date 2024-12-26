@@ -218,6 +218,7 @@ export default function Index() {
               ]}
               label="Menczer vs. Magyar"
               stroke="var(--color-memberCount)"
+              strokeDasharray="3 3"
             />
             <ReferenceLine
               segment={[
@@ -226,6 +227,7 @@ export default function Index() {
               ]}
               label="Mennyből az angyal"
               stroke="var(--color-memberCount)"
+              strokeDasharray="3 3"
             />
           </LineChart>
         </ChartContainer>

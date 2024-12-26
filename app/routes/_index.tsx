@@ -211,6 +211,22 @@ export default function Index() {
               stroke="var(--color-memberCount)"
               strokeDasharray="3 3"
             />
+            <ReferenceLine
+              segment={[
+                { x: "2024-12-03T12:21:13.731Z", y: 0 },
+                { x: "2024-12-03T12:21:13.731Z", y: 19263 },
+              ]}
+              label="Menczer vs. Magyar"
+              stroke="var(--color-memberCount)"
+            />
+            <ReferenceLine
+              segment={[
+                { x: "2024-12-20T12:08:26.802Z", y: 0 },
+                { x: "2024-12-20T12:08:26.802Z", y: 21589 },
+              ]}
+              label="Mennyből az angyal"
+              stroke="var(--color-memberCount)"
+            />
           </LineChart>
         </ChartContainer>
         <Trend trend={monthTrend} />

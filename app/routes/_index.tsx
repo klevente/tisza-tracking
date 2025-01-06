@@ -144,6 +144,26 @@ const Trend: FC<{ trend: number | undefined }> = ({ trend }) => {
   );
 };
 
+type NotableEvent = {
+  index: number;
+  label: string;
+};
+
+const NOTABLE_EVENTS = [
+  {
+    index: 109,
+    label: "Menczer vs. Magyar",
+  },
+  {
+    index: 124,
+    label: "Mennyből az angyal",
+  },
+  {
+    index: 136,
+    label: "Újév",
+  },
+] satisfies NotableEvent[];
+
 export default function Index() {
   const { data: chartData, monthTrend } = useLoaderData<typeof loader>();
 
@@ -211,24 +231,21 @@ export default function Index() {
               stroke="var(--color-memberCount)"
               strokeDasharray="3 3"
             />
-            <ReferenceLine
-              segment={[
-                { x: "2024-12-03T12:21:13.731Z", y: 0 },
-                { x: "2024-12-03T12:21:13.731Z", y: 19263 },
-              ]}
-              label="Menczer vs. Magyar"
-              stroke="var(--color-memberCount)"
-              strokeDasharray="3 3"
-            />
-            <ReferenceLine
-              segment={[
-                { x: "2024-12-20T12:08:26.802Z", y: 0 },
-                { x: "2024-12-20T12:08:26.802Z", y: 21589 },
-              ]}
-              label="Mennyből az angyal"
-              stroke="var(--color-memberCount)"
-              strokeDasharray="3 3"
-            />
+            {NOTABLE_EVENTS.map((event) => (
+              <ReferenceLine
+                key={event.index}
+                segment={[
+                  { x: chartData[event.index].recordedAt, y: 0 },
+                  {
+                    x: chartData[event.index].recordedAt,
+                    y: chartData[event.index].memberCount,
+                  },
+                ]}
+                label={event.label}
+                stroke="var(--color-memberCount)"
+                strokeDasharray="3 3"
+              />
+            ))}
           </LineChart>
         </ChartContainer>
         <Trend trend={monthTrend} />

@@ -162,6 +162,10 @@ const NOTABLE_EVENTS = [
     index: 136,
     label: "Újév",
   },
+  {
+    index: 176,
+    label: "Partizán",
+  },
 ] satisfies NotableEvent[];
 
 export default function Index() {

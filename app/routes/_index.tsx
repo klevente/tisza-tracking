@@ -21,6 +21,7 @@ import { type Member, members } from "~/db/schema.server";
 import { useLoaderData } from "@remix-run/react";
 import { ThemeToggle } from "~/components/theme-toggle";
 import type { FC } from "react";
+import type { LabelPosition } from "recharts/types/component/Label";
 
 function getCurrentMonthBounds() {
   const now = new Date();
@@ -147,12 +148,14 @@ const Trend: FC<{ trend: number | undefined }> = ({ trend }) => {
 type NotableEvent = {
   index: number;
   label: string;
+  position?: LabelPosition;
 };
 
 const NOTABLE_EVENTS = [
   {
     index: 109,
     label: "Menczer vs. Magyar",
+    position: "insideBottomRight",
   },
   {
     index: 124,
@@ -161,6 +164,7 @@ const NOTABLE_EVENTS = [
   {
     index: 136,
     label: "Újév",
+    position: "insideTopLeft",
   },
   {
     index: 176,
@@ -245,7 +249,7 @@ export default function Index() {
                     y: chartData[event.index].memberCount,
                   },
                 ]}
-                label={event.label}
+                label={{ value: event.label, position: event.position }}
                 stroke="var(--color-memberCount)"
                 strokeDasharray="3 3"
               />

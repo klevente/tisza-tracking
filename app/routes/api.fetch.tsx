@@ -49,7 +49,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     console.log("2. Browser created!");
     const page = await browser.newPage();
     console.log("3. New page created");
-    await page.goto("https://magyartisza.hu/rendszervaltas");
+    await page.goto("https://magyartisza.hu/rendszervalto-kartya");
     console.log("4. Went to tisza!");
     page.setDefaultTimeout(50_000);
     const handle = await page.waitForSelector(

@@ -12,6 +12,10 @@ export const config = {
   maxDuration: 60,
 };
 
+const TISZA_URL = "https://magyartisza.hu/tamogass/rendszervalto-kartya";
+const MEMBER_COUNT_SELECTOR = "::-p-xpath(//div[contains(text(), 'Fő')])";
+const NBSP_REPLACER = /&nbsp;|\u00A0/g;
+
 function isValidAuth(headers: Headers) {
   const authHeader = headers.get("authorization");
 
@@ -49,12 +53,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
     console.log("2. Browser created!");
     const page = await browser.newPage();
     console.log("3. New page created");
-    await page.goto("https://magyartisza.hu/rendszervalto-kartya");
+    await page.goto(TISZA_URL);
     console.log("4. Went to tisza!");
     page.setDefaultTimeout(50_000);
-    const handle = await page.waitForSelector(
-      "::-p-xpath(//p[contains(text(), 'fő')])",
-    );
+    const handle = await page.waitForSelector(MEMBER_COUNT_SELECTOR);
     console.log("5. Selected member element!");
     const numOfMembersStringRaw = await handle?.evaluate((a) => a.innerHTML);
     console.log("6. Evaluated element!");
@@ -64,11 +66,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
       });
     }
 
-    // pattern: " <members> fő", where <members> has separating commas
-    const numOfMembersString = numOfMembersStringRaw
-      .split(" ")[1]
-      .replaceAll(",", "");
-    const numOfMembers = parseInt(numOfMembersString, 10);
+    // pattern: "<members> Fő", where <members> has separating &nbsps
+    const split = numOfMembersStringRaw.split(/\s+/);
+    const numOfMembersString = split.slice(0, -1).join("");
+    const numOfMembersDigits = numOfMembersString.replace(NBSP_REPLACER, "");
+    const numOfMembers = parseInt(numOfMembersDigits, 10);
 
     console.log("7. Parsed member count:", numOfMembers);
 

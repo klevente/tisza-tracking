@@ -1,3 +1,4 @@
+import { setTimeout } from "node:timers/promises";
 import puppeteer from "puppeteer-core";
 import chromium from "@sparticuz/chromium";
 import { db } from "~/db/index.server";
@@ -56,6 +57,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     await page.goto(TISZA_URL);
     console.log("4. Went to tisza!");
     page.setDefaultTimeout(50_000);
+    await setTimeout(10_000);
     const handle = await page.waitForSelector(MEMBER_COUNT_SELECTOR);
     console.log("5. Selected member element!");
     const numOfMembersStringRaw = await handle?.evaluate((a) => a.innerHTML);
